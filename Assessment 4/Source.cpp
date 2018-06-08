@@ -2,48 +2,38 @@
 #include <vector>
 #include <string>
 #include <iostream>
-#include <algorithm>
-
-auto compareAlpha = [](const std::string& first, const std::string& last) //predicate for sort take 2 monster bits sort names
-{
-	return  first < last; //compare first name to second smallest (a) to largest (z)   hence <
-};
 
 
-const std::string binarySearchstrvec(const std::vector<std::string>* const array, const std::string& name)
+const std::string binarySearchstrvec( std::vector<std::string>&  array, const std::string& name)
 {
 
-	int size = array->size();
+	int size = array.size();
 	auto sizehalf = 0;
-	auto tempH = (array->end())-1;//auto tempH = (array[(size - 1)]);
-	auto tempL = array->begin();
-	
-	//auto it = std::find(array-> begin(), array->end(), name);
-	//if (it != array->end())
-	//{
-	//	// name not in vector
-	//}
-	//else
-	//{
-	//	auto index = std::distance(array->begin(), it);
-	//}
+	int tempH = array.size()-1;//(array->end())-1;//auto tempH = (array[(size - 1)]);
+	int tempL = 0;//array->begin();
 
-	for (int i = 0; i < size; ++i)
+	while (tempL < tempH)
 	{
-		sizehalf = (tempH - tempL) * 0.5;//auto sizehalf = tempH - tempL;//(tempH->end() - tempL->begin())-1;//std::distance(tempL, tempH) / 2;
 
-		if ((array->at(sizehalf) > name))
+		for (int i = 0; i < size; ++i)
 		{
-			if (array->at(sizehalf) == name) { return name; }
-			tempH = (array->begin());//sizehalf
-		}
-		else if (array->at(sizehalf) < name)
-		{
+			sizehalf = (tempH + tempL) * 0.5;
 
-			tempL = (array->begin());//sizehalf
+			if (name > array[sizehalf])
+			{
+				tempL = (sizehalf + 1);
+			}
+			else if (name < array[sizehalf])
+			{
+				tempH = (sizehalf);
+			}
+			else if (array[sizehalf] == name) { return name; }
+
 		}
-		else if (array->at(sizehalf) == name) { return name; }
+		int oldtempH = 999999;
+		int oldtempL = 99999;
 	}
+	 return "Name not Found";
 }
 
 
@@ -58,10 +48,14 @@ int main()
 	}
 	
 	file.close();
-	std::sort(filevec.begin(), filevec.end());
-	std::cout << filevec[2472] << std::endl;
-
-	std::cout << binarySearchstrvec(&filevec, "Tybie");
+	//std::sort(filevec.begin(), filevec.end());
+	std::string input;
+	while (input.empty()) {
+		std::cout << "NOTE CASE SENSITIVE" << std::endl;
+		std::cout << "Please type the name you want to check the database for :";
+		std::cin >> input;
+	}
+	std::cout << binarySearchstrvec(filevec, input) << " Was found";
 
 
 	return 0;
