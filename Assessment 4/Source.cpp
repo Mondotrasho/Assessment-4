@@ -9,27 +9,28 @@ auto compareAlpha = [](const std::string& first, const std::string& last) //pred
 	return  first < last; //compare first name to second smallest (a) to largest (z)   hence <
 };
 
+
 const std::string binarySearchstrvec(const std::vector<std::string>* const array, const std::string& name)
 {
 
 	int size = array->size();
-
+	auto sizehalf = 0;
 	auto tempH = (array->end())-1;//auto tempH = (array[(size - 1)]);
 	auto tempL = array->begin();
-
-	auto it = std::find(array-> begin(), array->end(), name);
-	if (it == array->end())
-	{
-		// name not in vector
-	}
-	else
-	{
-		auto index = std::distance(array->begin(), it);
-	}
+	
+	//auto it = std::find(array-> begin(), array->end(), name);
+	//if (it != array->end())
+	//{
+	//	// name not in vector
+	//}
+	//else
+	//{
+	//	auto index = std::distance(array->begin(), it);
+	//}
 
 	for (int i = 0; i < size; ++i)
 	{
-		auto sizehalf = (tempH->end() - tempL->begin())-1;//std::distance(tempL, tempH) / 2;
+		sizehalf = (tempH - tempL) * 0.5;//auto sizehalf = tempH - tempL;//(tempH->end() - tempL->begin())-1;//std::distance(tempL, tempH) / 2;
 
 		if ((array->at(sizehalf) > name))
 		{
@@ -58,8 +59,9 @@ int main()
 	
 	file.close();
 	std::sort(filevec.begin(), filevec.end());
-	std::cout << filevec[20] << std::endl;
-	binarySearchstrvec(&filevec, "John");
+	std::cout << filevec[2472] << std::endl;
+
+	std::cout << binarySearchstrvec(&filevec, "Tybie");
 
 
 	return 0;
